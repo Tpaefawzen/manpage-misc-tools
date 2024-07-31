@@ -1,0 +1,33 @@
+.Dd $Mdocdate$
+.Dt BASE64 1
+.Os
+.Sh NAME
+.Nm base64
+.Nd RFC 3548 Codec Command (compatible with "base64" command)
+.Sh SYNOPSIS
+.Nm
+.Op Fl -by-myself
+.Op Fl w Ar COLS
+.Ar FILE
+.Nm
+.Op Fl -by-myself
+.Fl d
+.Op Fl i
+.Ar FILE
+.Sh DESCRIPTION
+The
+.Nm
+is a reimplementation GNU Coreutil's
+.Nm
+utility with POSIXism shell script.
+.Pp
+The extended options are as follows:
+.Bl -tag -with Ds
+.It Fl -by-myself
+By default, if your system has your own
+.Nm
+utility, the command is invoked.
+When this option is given, this shell script is run.
+.El
+.Sh SEE ALSO
+Nothing else.
