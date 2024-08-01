@@ -1,0 +1,23 @@
+.Dd $Mdocdate$
+.Dt FSED 1
+.Os
+.Sh NAME
+.Nm fsed
+.Nd Replace every occurence of fixed string for each line
+.Sh SYNOPSIS
+.Nm
+.Ar pattern
+.Ar replacement
+.Op Ar file ...
+.Sh DESCRIPTION
+The
+.Nm
+concatenates every content of
+.Ar file
+with every occurence of
+.Ar pattern
+string with given
+.Ar replacement
+as output.
+.Sh EXIT STATUS
+.Ex -std
