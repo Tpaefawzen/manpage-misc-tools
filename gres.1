@@ -1,0 +1,21 @@
+.Dd August 1, 2024
+.Dt GRES 1
+.Os
+.Sh NAME
+.Nm gres
+.Nd Global Regular Expression and Substitute
+.Sh DESCRIPTION
+Same as
+.Xr greo 1
+without flag
+.Fl p ;
+it just outputs result of substitution.
+.Pp
+Unlike
+.Xr greo 1 ,
+the lack of
+.Ar file Ns s
+behaves as if standard input were specified for
+.Ar file .
+.Sh SEE ALSO
+.Xr greo 1
