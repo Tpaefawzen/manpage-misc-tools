@@ -1,0 +1,59 @@
+.Dd August 1, 2024
+.Dt EXFLOCK 1
+.Os
+.Sh NAME
+.Nm exflock
+.Nd Exclusive file lock
+.Sh SYNOPSIS
+.Nm
+.Ar seconds
+.Ar file
+.Op Ar maxlifetime
+.Sh DEPENDENCY
+The
+.Nm
+depends on one of the following utilities:
+.Bl -bullet -width Ds
+.It
+.Xr flock 1
+from util-linux
+.It
+.Xr flock 1
+from
+.Nx
+.It
+.Xr lockf 1
+from
+.Fx
+.El
+.Sh DESCRIPTION
+The
+.Nm
+tries to do exclusive lock for given
+.Ar file ,
+waiting for its availability for at most given
+.Ar seconds .
+When succeed, the locking process ID is output to
+the standard output.
+The
+.Ar file
+remains locked until the process is termined or killed,
+or
+.Ar maxlifetime
+seconds has passed since the lock creation.
+By default
+.Ar maxlifetime
+is 45 seconds, and specifying
+.Dq 0
+to the
+.Ar maxlifetime
+makes the lock not to expire.
+.Sh EXIT STATUS
+.Ex -std
+.Sh EXAMPLES
+.Bd -literal -offset Ds
+flock_pid=$( exflock 5 "$file2lock" )
+case "$flock_pid" in '') echo 'Could not lock'; exit 1;; esac
+do_something "$flock_pid"
+kill "$flock_pid"
+.Ed
