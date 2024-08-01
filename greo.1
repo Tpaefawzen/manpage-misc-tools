@@ -21,14 +21,14 @@ replaces every occurence of basic regular expression
 .Ar pattern
 in each
 .Ar file
-.Po
-or line-delimined list of files if the operand of
-.Ar file
-is not given
-.Pc
-with givn
+with given
 .Ar replacement
 string.
+If no
+.Ar file Ns s
+are specified the list of
+.Ar file Ns s
+delimined by newline is read from the standard input.
 Unless the flag
 .Fl p
 is given, the
