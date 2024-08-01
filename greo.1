@@ -1,0 +1,131 @@
+.Dd August 1, 2024
+.Dt GREO 1
+.Os
+.Sh NAME
+.Nm greo
+.Nd Global Regular Expression and Overwrite
+.Sh SYNOPSIS
+.Nm
+.Op Fl E | F
+.Op Fl Rrpt
+.Op Fl -quick-overwrite
+.Op Fl -
+.Ar pattern
+.Ar replacement
+.Op Ar file ...
+.Sh DESCRIPTION
+The
+.Nm
+replaces every occurence of basic regular expression
+.Pq BRE
+.Ar pattern
+in each
+.Ar file
+.Po
+or line-delimined list of files if the operand of
+.Ar file
+is not given
+.Pc
+with givn
+.Ar replacement
+string.
+Unless the flag
+.Fl p
+is given, the
+.Nm
+runs in dry-run mode; the
+.Ar file Ns No s
+are not actually overwritten until the
+.Fl p
+is given.
+.Pp
+The options are as follows:
+.Bl -tag -width Ds
+.It Fl E , Fl F
+Same semantics with
+.Xr grep 1 .
+.It Fl E , Fl -extended-regexp
+The
+.Ar pattern
+is an extended regular expression
+.Pq ERE .
+.It Fl F , Fl -fixed-string
+The
+.Ar pattern
+is a fixed string.
+.It Fl R , Fl r , Fl -recursive
+The
+.Ar file Ns s
+are not only files but also directories.
+For each specified directory, specify every files
+in the directory recursively for the
+.Nm
+operands.
+.It Fl p , Fl -perform , Fl -start
+Actually overwrite the result of substitution for each
+.Ar file .
+.It Fl t , Fl -times
+Preserve modification time.
+.It Fl -quick-overwrite
+.Em "Professional mode."
+Overwrite
+.Ar file Ns s
+without temporary files;
+file permission, file owner and group, file links, and
+file ACL are lost.
+.It Fl -
+End of options.
+.El
+.Sh EXAMPLES
+Replace every occurence of
+.Dq typo
+with
+.Dq type
+for each file in the current directory:
+.Bd -literal -offset Ds
+greo -p 'typo' 'type' *
+.Ed
+.Pp
+For each file modified within last 24 hours in directory
+.Dq src
+recursively, update date in comment:
+.Bd -literal -offset Ds
+find src/ -type f -mtime -1 |
+xargs greo -p '[0-9]\\{4\\}-[0-9]\\{2\\}-[0-9]\\{2\\}' '2017-04-01'
+.Ed
+.Pp
+Same thing:
+.Bd -literal -offset Ds
+find src/ -type f -mtime -1 |
+greo -p '[0-9]\\{4\\}-[0-9]\\{2\\}-[0-9]\\{2\\}' '2017-04-01'
+.Ed
+.Pp
+Replace every occurence of
+.Dq -R
+with
+.Dq -r ;
+strings begin with hyphen:
+.Bd -literal -offset Ds
+greo -p -- -R -r *
+.Ed
+.Sh SECURITY CONSIDERATIONS
+It is your task to specify
+.Ar file Ns s
+beginning with hyphen as relative path.
+For example the file
+.Dq -
+must be specified as
+.Dq ./- .
+.Pp
+Filenames with colon
+.Dq :
+must be avoided.
+.Pp
+The
+.Ar replacement
+must not be more than one lines;
+this is the vulnerability of the utility.
+.Sh EXIT STATUS
+.Ex -std
+.Sh SEE ALSO
+.Xr fsed 1
