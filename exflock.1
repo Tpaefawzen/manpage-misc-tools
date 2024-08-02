@@ -57,3 +57,8 @@ case "$flock_pid" in '') echo 'Could not lock'; exit 1;; esac
 do_something "$flock_pid"
 kill "$flock_pid"
 .Ed
+.Sh SEE ALSO
+.Xr pcllock 1 ,
+.Xr pexlock 1 ,
+.Xr pshlock 1 ,
+.Xr punlock 1
