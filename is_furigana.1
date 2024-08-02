@@ -1,0 +1,57 @@
+.Dd August 2, 2024
+.Dt IS_FURIGANA 1
+.Os
+.Sh NAME
+.Nm is_furigana
+.Nd Check if it's one line of furigana
+.Sh SYNOPSIS
+.Nm
+.Op options
+.Ar file
+.Sh DESCRIPTION
+The
+.Nm
+reads the input
+.Ar file
+to check if it's one line of furigana;
+the
+.Nm
+exits 0 if and only if it's one line consists of
+hiragana and katakana letters only, and
+>0 otherwise.
+.Pp
+The options are as follows:
+.Bl -tag -width Ds
+.It Fl -hira
+Accept hiragana only.
+.It Fl -kata
+Accept katakana only.
+.It Fl -hankata
+Accept half-width katakana only.
+.It Fl -zenkata
+Accept full-width katakana only.
+.El
+.Sh EXAMPLES
+These are furigana:
+.Bd -literal -offset Ds
+echo "あか" | is_furigana
+echo "ミドリ" | is_furigana
+printf "ｱｲｳｴｵ\\n" | is_furigana
+.Ed
+.Pp
+These are not furigana:
+.Bd -literal -offset Ds
+echo "ｱｵ1号" | is_furigana
+echo "とうきょうと ちよだく" | is_furigana
+printf "ｱｲ\nｳｴｵ" | is_furigana
+.Ed
+.Pp
+In second example it has an ASCII space letter but
+it is rejected.
+The third example has more than one lines.
+.Sh SEE ALSO
+.Xr hira2kana 1 ,
+.Xr kana2hira 1
+.Pp
+.Xr han 1 ,
+.Xr zen 1
