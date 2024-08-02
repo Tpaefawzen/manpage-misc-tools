@@ -1,0 +1,81 @@
+.Dd August 2, 2024
+.Dt GZPIPE 1
+.Os
+.Sh NAME
+.Nm gzpipe
+.Nd Make a named pipe (fifo) behaving as gzip filter
+.Sh SYNOPSIS
+.Nm
+.Op Fl t Ar timeout
+.Ar fifo
+.Op Ar output
+.Sh DESCRIPTION
+The
+.Nm
+creates a
+.Ar fifo
+available for
+.Ar timeout
+.Pq default: 600
+seconds to the given path if no such
+.Ar fifo
+exists.
+Then the
+.Ar fifo
+expects to read the data from other process.
+The content is compressed by the
+.Xr gzip 1
+utility to
+.Ar output
+to the given file
+.Pq or to the standard output if the Ao output Ac argument is absent .
+Finally the
+.Ar fifo
+is removed as cleanup.
+.Sh EXIT STATUS
+.Ex -std
+.Sh EXAMPLES
+Create a log file:
+.Bd -literal -offset Ds
+logdir=/var/log/myproject/
+logfile="$logdir/$(date +%Y/%m/%d-%H%M%S)-$$.gz"
+touch -c "$logfile"
+chmod 0600 "$logfile"
+
+gzpipe /var/tmp/myproject.$$ "$logfile"
+case $? in 0) :;; *) echo Gzpipe Fail 1>&2; exit 1;; esac
+
+exec 2>/var/tmp/myproject.$$
+set -vx # Take a log of what the rest of this shellscriot does
+
+# And do further things
+.Ed
+.Pp
+Take a log of error things only:
+.Bd -literal -offset Da
+gzpipe "$fifo" |
+gunzip -c |
+grep -i error > "$log" &
+
+until [ -p "$fifo" ]; do
+  sleep 0
+done
+
+exec 2>"$fifo"
+.Ed
+.Sh NOTES
+The
+.Nm
+forks itself.
+.Pp
+Self-cleanup feature is implemented in case its
+parent process were to be killed.
+.Pp
+You have to customize the
+.Ar output
+file's permission before the use of the
+.Nm .
+.Pp
+The following usage should be avoided so the performance
+gets worse:
+.Dl gzpipe my-fifo > result.gz
