@@ -1,0 +1,26 @@
+.Dd August  2, 2024
+.Dt MKCGIPOST 1
+.Os
+.Sh NAME
+.Nm mkcgipost
+.Nd Generate HTTP URL query string
+.Sh SYNOPSIS
+.Nm
+,n
+.Op Ar file ...
+.Sh DESCRIPTION
+The
+.Nm
+gets list of pair of a CGI variable name and its value
+from given input
+.Ar file
+to generate a query string for the URL without trailing newline.
+.Pp
+The input is
+.Xr name-format 5 ;
+it's lines of two fields.
+.Pp
+The percent encoding is done for you.
+.Sh SEE ALSO
+.Xr urldecode 1 ,
+.Xr urlencode 1
