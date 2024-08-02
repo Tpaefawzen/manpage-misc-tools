@@ -1,0 +1,54 @@
+.Dd August 2, 2024
+.Dt HIRA2KANA 1
+.Os
+.Sh NAME
+.Nm hira2kana
+.Nd Hiragana to katakana converter
+.Sh SYNOPSIS
+.Nm
+.Cm + Ns Oo Ar n Oc Ns Cm h
+.Ar field ...
+.Op Ar file
+.Nm
+.Fl d
+.Ar field ...
+.Ar string
+.Sh DESCRIPTION
+The
+.Nm
+takes the
+.Xr field-format 5
+input file.
+Then, for each specified
+.Ar field Ns s
+convert every hiragana letter to its corresponding
+zenkaku
+.Pq full-width
+katakana letter.
+.Pp
+The options are as follows:
+.Bl -tag -width Ds
+.It Cm + Ns Oo Ar n Oc Ns Cm h
+The first
+.Ar n
+.Pq default: 1
+lines of the
+.Ar file
+is a comment; they are output as-is.
+.It Fl d
+The
+.Ar string
+is input.
+.El
+.Sh EXIT STATUS
+.Ex -std
+.Sh NOTES
+The
+.Nm
+takes UTF-8 text files only.
+.Pp
+.Sh SEE ALSO
+.Xr han 1 ,
+.Xr zen 1
+.Pp
+.Lk "https://uec.usp-lab.com/TUKUBAI_MAN/CGI/TUKUBAI_MAN.CGI?POMPA=LIST" "Open usp Tukubai Command Manual"
