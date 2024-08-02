@@ -11,13 +11,17 @@ err() {
   exit 1
 }
 case $# in 0)
-  echo "Usage: ${0##*/} name ..." 1>&2
+  echo "Usage: ${0##*/} name description ..." 1>&2
   exit 1
 esac
 
-for a in "$@"; do
+while case $# in [01]) false;; *) :;; esac; do
+  a="$1"
+  b="$2"
+  shift 2
+
   # name accepted?
-  case "$a" in */*|*[!0-9A-Za-z._-]*)
+  case "$a" in */*|*[!0-9A-Za-z._-]*|-*|.|..)
     err "$a: name not accepted"
   esac
 
@@ -33,12 +37,12 @@ for a in "$@"; do
 
   # Template
   cat > "$a" <<-__MDOC__
-.Dd $( date +'%B %d, %Y' )
-.Dt $T
+.Dd $( date +'%B %e, %Y' )
+.Dt $T 1
 .Os
 .Sh NAME
 .Nm $util
-.Nd \" TODO
+.Nd $b
 .Sh SYNOPSIS
 .Nm
 .\" TODO
