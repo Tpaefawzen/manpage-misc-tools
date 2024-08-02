@@ -79,3 +79,16 @@ file's permission before the use of the
 The following usage should be avoided so the performance
 gets worse:
 .Dl gzpipe my-fifo > result.gz
+.Sh CAVERTS
+I have just tried the invokation when I didn't have the
+.Ar fifo
+to see something seemed to be broken;
+the fifo was surely created but the
+.Ar output
+file did not get created.
+And the
+.Ar timeout
+did not work as it got documented!
+This utility needs some help;
+as I have never used the
+.Nm !
