@@ -9,7 +9,7 @@
 .Op options
 .Ar input-group ...
 .Nm
-.Fl m|-generatemimeboundary
+.Fl m | -generatemimeboundary
 .Sh DESCRIPTION
 In first form, generate MIME Multipart Formatted Data
 consists of given
@@ -30,16 +30,48 @@ respectively
 Specify custom MIME boundary.
 .It Fl -crlf , Fl -lf
 Specify end-of-line representation
-.Qo
+.Po
 default:
 .Fl -lf
 for HTTP,
 .Fl -crlf
 for mail
-.Qc
+.Pc
 .It Fl -b64 , Fl -raw
 Output in
 .Xr base64 1
 format or raw format respectively
 .Pq default: Fl -raw .
 .El
+.Pp
+The
+.Ar input-group Ns s
+are as follows, and must be consistent:
+.Bl -tag -width Ds
+.It Fl T Ar name Ar value , Fl Tf Ar name Ar file
+Specify textform.
+.It Fl F Ns Oo Cm t Oc Ns Oo Cm f Oc Ar name Oo Ar filetype Oc Oo Ar filename Oc Ar file
+Specify fileform.
+With
+.Cm t ,
+specify
+.Ar filetype .
+With
+.Cm f ,
+specify
+.Ar filename .
+.It Fl M Ar file
+Specify mail body.
+.It Fl A Ns Oo Cm t Oc Ns Oo Cm f Oc Oo Ar filetype Oc Oo Ar filename Oc Ar file
+Specify mail attachment.
+With
+.Cm t ,
+specify
+.Ar filetype .
+With
+.Cm f ,
+specify
+.Ar filename .
+.El
+.Sh EXIT STATUS
+.Ex -std
