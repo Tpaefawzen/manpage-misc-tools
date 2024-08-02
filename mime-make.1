@@ -1,0 +1,45 @@
+.Dd August  2, 2024
+.Dt MIME-MAKE 1
+.Os
+.Sh NAME
+.Nm mime-make
+.Nd Generate MIME Multipart Formatted Data
+.Sh SYNOPSIS
+.Nm
+.Op options
+.Ar input-group ...
+.Nm
+.Fl m|-generatemimeboundary
+.Sh DESCRIPTION
+In first form, generate MIME Multipart Formatted Data
+consists of given
+.Ar input-group Ns s
+for HTTP form-data or mail body or mail attachment.
+In second form, generate a MIME boudary.
+.Pp
+The
+.Op options
+are as follows:
+.Bl -tag -width Ds
+.It Fl -bo , Fl -wh
+Output body only or with header
+.Pq Content-Type
+respectively
+.Pq default: Fl -bo .
+.It Fl b Ar boundary
+Specify custom MIME boundary.
+.It Fl -crlf , Fl -lf
+Specify end-of-line representation
+.Qo
+default:
+.Fl -lf
+for HTTP,
+.Fl -crlf
+for mail
+.Qc
+.It Fl -b64 , Fl -raw
+Output in
+.Xr base64 1
+format or raw format respectively
+.Pq default: Fl -raw .
+.El
