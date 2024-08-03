@@ -1,0 +1,85 @@
+.Dd August  3, 2024
+.Dt MKCOOKIE 1
+.Os
+.Sh NAME
+.Nm mkcookie
+.Nd Generate HTTP Set-Cookie header
+.Sh SYNOPSIS
+.Nm
+.Op Fl d Ar domain
+.Op Fl e Ar expires
+.Op Fl h Ar http-only
+.Op Fl p Ar path
+.Op Fl s Ar secure
+.Op Ar name Ns = Ns Ar value
+.Sh DESCRIPTION
+The
+.Nm
+takes a pair of cookie variable
+.Ar name
+and its
+.Ar value
+from the argument to generate an HTTP Set-Cookie header.
+If they are not specified, then the standard input reads pairs of
+cookie variable
+.Ar name
+and its
+.Ar value ,
+line-by-line, separated with exactly one space letter;
+this usage can generate multiple cookies to set.
+.Pp
+The string is output to the standard output, and
+it begins with an empty line followed by actual Set-Cookie header,
+without trailing newline.
+.Pp
+The options are as follows:
+.Bl -tag -width Ds
+.It Fl d Ar domain
+Specify domain directive; the host where the cookie will be sent.
+.It Fl e Ar expires
+Specify cookie expiry date.
+The synopsis is
+.D1 Ar YYYYMMDDHHMMSS
+.D1 + Ns Ar n
+.D1 Ar YYYYMMDDHHMMSS Ns + Ns Ar n
+.Pp
+The
+.Ar n
+above is in second-unit.
+The date and time is represented in your timezone;
+the timezone can be changed with environment variable
+.Ev TZ ;
+see
+.Xr date 1
+for more details.
+.It Fl h Ar http-only
+Specify if it's HttpOnly;
+specified with either
+.Dq Y
+for yes or
+.Dq N
+for no
+.Pq default .
+.It Fl s Ar secure
+Specify if it's Secure:
+specified with either
+.Dq Y
+for yes or
+.Dq N
+for no or
+.Dq A
+for auto-detection from the environment variable
+.Ev HTTPS
+.Pq default .
+.El
+.Sh ENVIRONMENT VARIABLES
+.Bl -tag -width Ds
+.It HTTPS
+For
+.Fl s Ar secure .
+.It TZ
+For
+.Fl d Ar expires .
+.El
+.Sh EXIT STATUS
+.Ex -std
