@@ -1,0 +1,45 @@
+.Dd August 13, 2024
+.Dt GETFILETS 1
+.Os
+.Sh NAME
+.Nm getfilets
+.Nd Obtain file timestamp
+.Sh SYNOPSIS
+.Nm
+.Op Fl 9u
+.Op Fl c | e | I
+.Ar file ...
+.Sh DESCRIPTION
+For each
+.Ar file ,
+the
+.Nm
+outputs its timestamp, line-by-line, in
+the following format:
+.Bd -literal -offset Ds
+atime mtime ctime filename
+.Ed
+.Pp
+The
+.Ar atime
+represents last access time.
+The
+.Ar mtime
+represents last modification time.
+The
+.Ar ctime
+represents file creation time.
+No matter whether the
+.Ar file
+timestamp can be accessed or not,
+such line is output with unavailable timestamp
+represented in a hyphen
+.Dq - .
+.Pp
+The options are as follows:
+.Sh EXIT STATUS
+The
+.Nm
+exits with status of 0 if and only if every
+.Ar file
+has its timestamp available.
