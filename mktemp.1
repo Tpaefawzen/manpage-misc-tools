@@ -1,0 +1,55 @@
+.Dd August 3, 2024
+.Dt MKTEMP 1
+.Os
+.Sh NAME
+.Nm mktemp
+.Nd Make a temporary file
+.Sh SYNOPSIS
+.Nm
+.Op Fl -by-myself
+.Op Fl dqut
+.Op Fl p Ar dir
+.Op Fl -suffix= Ns Ar suff
+.Op Ar template ...
+.Sh DESCRIPTION
+Shellscript implementation of
+.Nm
+from GNU coreutils,
+.Ox ,
+.Fx , and
+Solaris, but not compatible with
+HP/UX's one
+.Pq I couldn't get the manual from macOS ;
+by default the
+.Nm
+tries to run the same-named command installed on your system.
+.Pp
+The
+.Nm
+generates a temporary file to the
+.Ar dir Ns ectory
+specified by the flag
+.Fl p
+or the directory specified by
+.Ev TMPDIR
+or the
+.Dq /tmp
+directory.
+Then output the path to the file to the standard output.
+.Pp
+The options are as follows:
+.Bl -tag -width Ds
+.It Fl -by-myself
+Suppress invoking the
+.Nm
+utility in your system;
+instead, run the rest of this implementation.
+.It Fl d
+Create a directory, not a file.
+.It Fl p Ar dir
+Specify the
+.Ar dir Ns ectory
+where the temporary file should be generated on.
+.It Fl q
+Quiet mode.
+.El

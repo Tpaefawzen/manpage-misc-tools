@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 .Dd August 13, 2024
+=======
+.Dd August 3, 2024
+>>>>>>> refs/remotes/origin/main
 .Dt MKCGIPOST 1
 .Os
 .Sh NAME
@@ -14,11 +18,14 @@ The
 gets list of pair of a CGI variable name and its value
 from given input
 .Ar file
-to generate a query string for the URL without trailing newline.
+to output a query string for the URL without trailing newline.
 .Pp
 The input is
 .Xr name-format 5 ;
-it's lines of two fields.
+it's lines of two fields; the first field represents
+a variable name, and the second represents its value.
+They are delimined by exactly one space letter
+.Pq not tab letter.
 .Pp
 The percent encoding is done for you.
 .Sh SEE ALSO
